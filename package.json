@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "API Rest para creaciones-kmg",
+  "keywords": [
+    "api",
+    "node",
+    "express",
+    "bcrypt",
+    "mongoose",
+    "jwt"
+  ],
+  "homepage": "https://github.com/sebastian11garay/Creaciones-KMG-backend#readme",
+  "bugs": {
+    "url": "https://github.com/sebastian11garay/Creaciones-KMG-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastian11garay/Creaciones-KMG-backend.git"
+  },
+  "license": "ISC",
+  "author": "Sebsatian Salamanca Garay <sebastiansalamanca844@gmail.com>",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
