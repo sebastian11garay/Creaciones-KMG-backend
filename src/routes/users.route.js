@@ -1,8 +1,6 @@
 //IMPORTANDO LA DEPENDECIA EXPRESS USANDO commonJs
-const express = require('express');
-
+import express from  'express';
 const router = express.Router();
-
 //DEFINICION DE LAS RUTAS (ENDPOINTS)
 router.get('/users' , (req,res) => {
     // res.send('<h1>Users</h1>');
@@ -37,4 +35,4 @@ router.delete( '/', ( req, res ) => {
 
 
 //exportando router usando commonJS
-module.exports =router;
+export default router;

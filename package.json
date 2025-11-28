@@ -24,7 +24,7 @@
     "Sebastian Salamanca Garay <sebastiansalamanca844@gail.com>",
     "Ramiro Diaz <jramiroda10@gmail.com>"
   ],
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "node --watch ./src/index.js"

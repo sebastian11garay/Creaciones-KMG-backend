@@ -1,8 +1,11 @@
-const express = require('express');     //IMPORTACION
-const dbConnection = require('./config/mongo.config.js')
+import express from 'express';  //IMPORTACION
 
-const app = express();
-const PORT = 3000;
+import dbConnection from'./config/mongo.config.js';
+import userRoute from './routes/users.route.js';
+import productsRoute from './routes/products.route.js';
+
+const app = express(); //INVOCANDO CORE EXPRESS
+const PORT = 3000; //DEFINIENDO EL PUERTO ESCUCHA
 
 dbConnection();  //EJECUTA LA CONEXION A LA BASE DE DATOS
 
@@ -18,8 +21,8 @@ app.get('/health', (req,res) =>{
 
 
 //Middlewares Express
-app.use('/api/v1' ,require('./routes/users.route' ));
-app.use('/api/v2' ,require('./routes/products.route.js'));
+app.use('api/v1./users.route', userRoute );
+app.use('api/v2./products.route',productsRoute);
 
 
 //LANZANDO EL SERVIDOR WEB USANDO EXPRESS

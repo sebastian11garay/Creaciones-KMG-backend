@@ -1,6 +1,6 @@
 //Mongoose ODM, ORM
-const mongoose = require('mongoose');
-const MONGO_URI = 'mongodb://localhost:27017/creaciones-kmg'
+import mongoose from'mongoose';
+const MONGO_URI = 'mongodb://localhost:27017/creaciones-kmg';
 
 const dbConnection = async () => {
 
@@ -16,7 +16,8 @@ catch (error){
 
 }
 
-module.exports = dbConnection;
+export default  dbConnection;
+
 
 
 

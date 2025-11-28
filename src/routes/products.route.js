@@ -1,7 +1,7 @@
-const  express = require('express');
-
+import express from 'express'
 const router = express.Router();
 
+//DEFINICION DE LAS RUTAS DE PRODUCTS
 router.get('/products', (req,res) => {
     // res.send('<h1>Products</h1>');
     res.json({
@@ -9,4 +9,4 @@ router.get('/products', (req,res) => {
     });
 });
 
-module.exports = router;
+export default router;
