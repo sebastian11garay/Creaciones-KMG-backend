@@ -19,8 +19,7 @@
     "url": "git+https://github.com/sebastian11garay/Creaciones-KMG-backend.git"
   },
   "license": "ISC",
-  "author": 
-  "Sebsatian Salamanca Garay <sebastiansalamanca844@gmail.com>",
+  "author": "Sebsatian Salamanca Garay <sebastiansalamanca844@gmail.com>",
   "contributors": [
     "Sebastian Salamanca Garay <sebastiansalamanca844@gail.com>",
     "Ramiro Diaz <jramiroda10@gmail.com>"
@@ -31,6 +30,7 @@
     "dev": "node --watch ./src/index.js"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mongoose": "^9.0.0"
   }
 }

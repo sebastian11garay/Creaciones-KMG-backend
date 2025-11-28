@@ -1,7 +1,10 @@
-const express = require('express');
+const express = require('express');     //IMPORTACION
+const dbConnection = require('./config/mongo.config.js')
 
 const app = express();
 const PORT = 3000;
+
+dbConnection();  //EJECUTA LA CONEXION A LA BASE DE DATOS
 
 app.get('/health', (req,res) =>{
     // res.send('<h1>Healt</h1>');
