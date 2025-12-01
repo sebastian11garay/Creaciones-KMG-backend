@@ -19,10 +19,13 @@ app.get('/health', (req,res) =>{
 });
 
 
+//middlewares para separar las rutas por entidad 
 
-//Middlewares Express
-app.use('api/v1./users.route', userRoute );
-app.use('api/v2./products.route',productsRoute);
+app.use( express.json() );      //Middlewares Express
+
+
+app.use('/api/v1/users', userRoute );
+app.use('/api/v2/products',productsRoute);
 
 
 //LANZANDO EL SERVIDOR WEB USANDO EXPRESS
