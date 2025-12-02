@@ -40,12 +40,19 @@ const userSchema = new Schema({
         default: true
 
     },
+    createDate: {
+        type: Date,
+        default: new Date().now
+    }
     // code: {
     //     type: String,
     //     trim: true
     // }
 
-},{}); 
+},{
+    versionKey: false,
+    timestamps: true
+}); 
 
 // crear modelo user basado en el esquema userSchema
 
