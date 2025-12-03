@@ -1,6 +1,6 @@
 // se debe de encargar de recibir las peticiones y responder a ellas
 import userModel from "../models/user.model.js";
-import { dbRegisterUser, dbGetAllUsers, dbGetUserById } from "../services/user.service.js";
+import { dbRegisterUser, dbGetAllUsers, dbGetUserById, dbDeletedUserById } from "../services/user.service.js";
 
 const  createUser = async (req, res) => {
 
@@ -68,8 +68,32 @@ const getUserById = async ( req, res ) => {
     }
 }
 
+const deleteUserById = async ( req, res ) => {
+    try {
+        const idUser = req.params.idUser;
+    
+        const userDeleted = await dbDeletedUserById( 
+            idUser );
+    
+        res.json({
+            userDeleted
+        });
+            
+        
+    } catch (error) {
+        console.error(error);
+        res.json({
+            msg:'Error: no se pudo eliminar el usuario por Id'
+        })
+        
+    }
+
+    
+}
+
 export { 
     createUser,
     getAllUsers,
-    getUserById
+    getUserById,
+    deleteUserById
 } 
