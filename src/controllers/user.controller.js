@@ -1,6 +1,6 @@
 // se debe de encargar de recibir las peticiones y responder a ellas
 import userModel from "../models/user.model.js";
-import { dbRegisterUser, dbGetAllUsers } from "../services/user.service.js";
+import { dbRegisterUser, dbGetAllUsers, dbGetUserById } from "../services/user.service.js";
 
 const  createUser = async (req, res) => {
 
@@ -46,8 +46,30 @@ const getAllUsers = async (req, res) => {
     
 }
 
+const getUserById = async ( req, res ) => {
+    try {
+        const idUser = req.params.idUser;
+    
+        const user = await dbGetUserById (
+            idUser);
+    
+        res.json ({
+            user
+        });
+    }
+        
+     catch (error) {
+        console.error( error );
+        res.json ({
+            msg: 'Error: no se pudo obtener usuario por ID'
+            
+        });
+
+    }
+}
+
 export { 
     createUser,
-    getAllUsers
-
+    getAllUsers,
+    getUserById
 } 
