@@ -1,12 +1,13 @@
-import express from 'express'
-const router = express.Router();
+import { Router } from "express";
+import { createProducts, deleteproductById, getAllProducts, getProductsById, updateProductById } from "../controllers/products.controller.js";
+const router = Router();
 
 //DEFINICION DE LAS RUTAS DE PRODUCTS
-router.get('/products', (req,res) => {
-    // res.send('<h1>Products</h1>');
-    res.json({
-        msg:'muñecas'
-    });
-});
+router.post( '/', createProducts );
+router.get( '/', getAllProducts) ;
+router.get( '/:idProduct', getProductsById );
+router.delete('/:idProduct', deleteproductById);
+router.patch( '/:idProduct', updateProductById );
+
 
 export default router;

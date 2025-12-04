@@ -25,7 +25,7 @@ app.use( express.json() );      //Middlewares Express
 
 
 app.use('/api/v1/users', userRoute );
-app.use('/api/v2/products',productsRoute);
+app.use('/api/v1/products',productsRoute);
 
 
 //LANZANDO EL SERVIDOR WEB USANDO EXPRESS

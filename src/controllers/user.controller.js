@@ -5,17 +5,17 @@ import { dbRegisterUser, dbGetAllUsers, dbGetUserById, dbDeletedUserById, dbUser
 const  createUser = async (req, res) => {
 
     try {
-    const data  = req.body;                     //extraer el cuerpo de la peticion
+    const inputData  = req.body;                     //extraer el cuerpo de la peticion
 
-    console.log( data );                        // imprimirr en la consola el cuerpo de la  peticion
+    console.log( inputData );                        // imprimirr en la consola el cuerpo de la  peticion
     
     //registrar los datos usandon uselModel
-    const dataRegistered = await dbRegisterUser( data );             //registrar los datos en la base de datos
+    const dataRegistered = await dbRegisterUser( inputData );             //registrar los datos en la base de datos
 
     // responder al usuario
 
     res.json({ 
-        msg: 'create users',
+        
         // data: data;     //forma tradicional 
         dataRegistered     // ECMAScript 2015
      });
@@ -33,7 +33,7 @@ const getAllUsers = async (req, res) => {
     try {
         const users = await dbGetAllUsers();
         res.json({
-            msg: 'obtiene todos los usuario',
+            
             users
         });
         
@@ -50,11 +50,11 @@ const getUserById = async ( req, res ) => {
     try {
         const idUser = req.params.idUser;
     
-        const user = await dbGetUserById (
+        const userFound = await dbGetUserById (
             idUser);
     
         res.json ({
-            user
+            userFound
         });
     }
         
@@ -97,11 +97,7 @@ const updateUserById = async (req, res) => {
         const inputData = req.body;
         const idUser = req.params.idUser;
     
-        const userUpdate = await dbUserUpdate (
-            idUser,            //ID
-            inputData,           //Datos a actualizar
-            { new: true }       //configuracion
-        );
+        const userUpdate = await dbUserUpdate ( idUser, inputData);
         
         
         
@@ -125,6 +121,7 @@ const updateUserById = async (req, res) => {
 
 
 }
+
 
 export { 
     createUser,
