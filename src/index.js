@@ -3,6 +3,8 @@ import express from 'express';  //IMPORTACION
 import dbConnection from'./config/mongo.config.js';
 import userRoute from './routes/users.route.js';
 import productsRoute from './routes/products.route.js';
+import categoryRoute from './routes/category.route.js';
+
 
 const app = express(); //INVOCANDO CORE EXPRESS
 const PORT = 3000; //DEFINIENDO EL PUERTO ESCUCHA
@@ -18,11 +20,13 @@ app.get('/health', (req,res) =>{
     });
 });
 
+app.use( express.json() ); 
 
 
 //Middlewares Express
-app.use('api/v1./users.route', userRoute );
-app.use('api/v2./products.route',productsRoute);
+app.use('/api/v1/users', userRoute );
+app.use('/api/v1/products',productsRoute);
+app.use('/api/v1/category', categoryRoute )
 
 
 //LANZANDO EL SERVIDOR WEB USANDO EXPRESS
