@@ -27,6 +27,8 @@ const  createUser = async (req, res) => {
 
     // responder al usuario
 
+    
+
     res.json({ 
         msg: 'create users',
         // data: data;     //forma tradicional 

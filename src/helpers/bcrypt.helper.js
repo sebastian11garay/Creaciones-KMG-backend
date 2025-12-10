@@ -16,11 +16,15 @@ const encryptedPassword = ( passwordUser) => {
  }
 
 //verificar la contrasenia
-const verifyEncriptedPassword = (req, res) => {
-
+const verifyEncriptedPassword = ( originalPassword, hashPassword ) => {
+    return bcrypt.compareSync(
+        originalPassword,//password original(envian al body)
+        hashPassword //passeord de la base de datos(hash password)
+    )
 }
 
 export {
     encryptedPassword,
     verifyEncriptedPassword
 }
+

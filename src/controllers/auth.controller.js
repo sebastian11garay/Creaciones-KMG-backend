@@ -1,27 +1,37 @@
-// impo
-// const  createUser = async (req, res) => {
+import { verifyEncriptedPassword } from "../helpers/bcrypt.helper.js";
+import { dbGetUserByEmail } from "../services/user.service.js";
 
-//     try {
-//     const data  = req.body;                     //extraer el cuerpo de la peticion
+const loginUser = async (req,res) => {
+    const inputData = req.body;
 
-//     console.log( data );                        // imprimirr en la consola el cuerpo de la  peticion
-    
-//     //registrar los datos usandon uselModel
-//     const dataRegistered = await dbRegisterUser( data );             //registrar los datos en la base de datos
+    //paso 1: verificar si el usuario no existe(por favor registrese)
 
-//     // responder al usuario
+    const userFound = await dbGetUserByEmail  (inputData.email);
+        
+        if ( ! userFound ) {
+            return res.json({ msg: 'No puede logearse. por favor haga su registro' });
+        }
+         
 
-//     res.json({ 
-//         msg: 'create users',
-//         // data: data;     //forma tradicional 
-//         dataRegistered     // ECMAScript 2015
-//      });
+    //paso 2: verificar si la contrasenia cohincide
 
-//     }
-//     catch (error) {
-//         console.error(error);
-//         res.json({
-//             msg: 'error: no se pudo crear el usuario'
-//         });
-//     }
-// }
+    const isMatch = verifyEncriptedPassword ( inputData.password, userFound.password );
+
+    if ( ! isMatch ) {
+        return res.json({ msg: 'credenciales invalidas' });
+    }
+
+    //paso 3: generar credencial digital(Token)
+
+    //paso 4: eliminar propiedades con datos sensibles
+
+    //paso 5: responder al cliente 
+
+    res.json({
+        msg: 'usuario logeado'
+    });
+}
+
+export{
+    loginUser,
+}
