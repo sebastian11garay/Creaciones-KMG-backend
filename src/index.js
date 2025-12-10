@@ -1,6 +1,7 @@
 import express from 'express';  //IMPORTACION
 
 import dbConnection from'./config/mongo.config.js';
+import authRoute from './routes/auth.route.js';
 import userRoute from './routes/users.route.js';
 import productsRoute from './routes/products.route.js';
 
@@ -23,9 +24,9 @@ app.get('/health', (req,res) =>{
 
 app.use( express.json() );      //Middlewares Express
 
-
-app.use('/api/v1/users', userRoute );
-app.use('/api/v2/products',productsRoute);
+app.use('/api/v1/auth', authRoute );                   //login/register/renewToken
+app.use('/api/v1/users', userRoute );              // CRUD (users) : autenticado    
+app.use('/api/v1/products',productsRoute);
 
 
 //LANZANDO EL SERVIDOR WEB USANDO EXPRESS

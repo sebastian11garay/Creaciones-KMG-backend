@@ -1,16 +1,29 @@
 // se debe de encargar de recibir las peticiones y responder a ellas
+import { encryptedPassword } from "../helpers/bcrypt.helper.js";
 import userModel from "../models/user.model.js";
-import { dbRegisterUser, dbGetAllUsers, dbGetUserById, dbDeletedUserById, dbUserUpdate } from "../services/user.service.js";
+import { dbRegisterUser, dbGetAllUsers, dbGetUserById, dbDeletedUserById, dbUserUpdate, dbGetUserByEmail } from "../services/user.service.js";
 
 const  createUser = async (req, res) => {
 
     try {
-    const data  = req.body;                     //extraer el cuerpo de la peticion
+    const inputData  = req.body;                     //extraer el cuerpo de la peticion
 
-    console.log( data );                        // imprimirr en la consola el cuerpo de la  peticion
+    // paso 1: verificar si el usuario existe
+    const userFound = await dbGetUserByEmail  (inputData.email);
     
+    if (userFound) {
+        return res.json({ msg: 'error: no se puede registrar el usario ya esta registrado' });
+    }
+     
+    // paso2: encriptar la clave del usuario
+
+    inputData.password = encryptedPassword (inputData.password);
+    console.log( 'inputData antes de registrar', inputData );
+
+    //paso3: registrar el usuario
+    console.log( inputData );   
     //registrar los datos usandon uselModel
-    const dataRegistered = await dbRegisterUser( data );             //registrar los datos en la base de datos
+    const dataRegistered = await dbRegisterUser( inputData );             //registrar los datos en la base de datos
 
     // responder al usuario
 
