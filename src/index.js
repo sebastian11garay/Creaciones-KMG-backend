@@ -6,9 +6,14 @@ import userRoute from './routes/users.route.js';
 import productsRoute from './routes/products.route.js';
 
 const app = express(); //INVOCANDO CORE EXPRESS
-const PORT = 3000; //DEFINIENDO EL PUERTO ESCUCHA
+const PORT = process.env.PORT ||  3000; //DEFINIENDO EL PUERTO ESCUCHA
 
-dbConnection();  //EJECUTA LA CONEXION A LA BASE DE DATOS
+
+
+// Ejecuta la conexion a la base de datos y luego el seeding
+dbConnection();
+
+app.use( express.json() );      //Middlewares Express
 
 app.get('/health', (req,res) =>{
     // res.send('<h1>Healt</h1>');
@@ -22,7 +27,7 @@ app.get('/health', (req,res) =>{
 
 //middlewares para separar las rutas por entidad 
 
-app.use( express.json() );      //Middlewares Express
+
 
 app.use('/api/v1/auth', authRoute );                   //login/register/renewToken
 app.use('/api/v1/users', userRoute );              // CRUD (users) : autenticado    

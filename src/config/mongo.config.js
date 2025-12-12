@@ -1,6 +1,6 @@
 //Mongoose ODM, ORM
 import mongoose from'mongoose';
-const MONGO_URI = 'mongodb://localhost:27017/creaciones-kmg';
+const MONGO_URI = process.env.DB_URI  || 'mongodb://localhost:27017/creaciones-kmg-default';
 
 const dbConnection = async () => {
 

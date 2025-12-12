@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 const generateToken = ( payload ) => {
     const token = jwt.sign(
         payload,//carga util
-        'ksddsdhdhskj',//semilla (palabra secreta) ==> salt
+        process.env.JWT_SEED,//semilla (palabra secreta) ==> salt
         { expiresIn: '1h' }//opciones de configuracion del token
 
 
@@ -18,7 +18,7 @@ const generateToken = ( payload ) => {
 const verifyToken = (token) => {
     return jwt.verify(
         token,              //token valido
-        'ksddsdhdhskj',     // semilla(palabra secreta)    
+        process.env.JWT_SEED     // semilla(palabra secreta)    
 
 
     );
