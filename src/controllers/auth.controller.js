@@ -25,6 +25,7 @@ const loginUser = async (req,res) => {
     //paso 3: generar credencial digital(Token)
 
     const payload = {
+        id: userFound._id, //identificador unico del usuario, controlar quien hace que en la aplicacion
         name: userFound.name,   // hola (nombre)
         email: userFound.email,  // para realizar comunicaciones anonimas
         role: userFound.role     // para informar al fronteende para la autorizacion que tienen los usuarios para acceder a las diferentes interfaces
@@ -46,6 +47,41 @@ const loginUser = async (req,res) => {
     });
 }
 
+const reNewToken = async (req, res) => {
+// paso 1: extrae el payload del onjeto req que hemos asignado 
+    const payload = req.payload;
+    
+
+    // paso 2: elimina propiedades inecesarias para el cliente
+    delete payload.iat;
+    delete payload.exp;
+
+    //paso 3: verificar si el usuario sigue existiendo en la base de datos
+    const userFound = await dbGetUserByEmail( payload.email);
+
+    if( !userFound ) {
+        return res.json({ msg: 'usuario no existe. por favor haga su registro' });
+    }
+//paso 4: generar un nuevo token 
+      
+    const token = generateToken ({
+        id: userFound._id,
+        name: userFound.name,
+        email: userFound.email,
+        role: userFound.role
+    });
+
+    //paso 5: eliminar propiedades con datos sensibles 
+
+    const jsonUserFound = userFound.toObject();
+    delete jsonUserFound.password;
+
+    // paso 6: responder al cliente
+    res.json({token, user: jsonUserFound});
+
+} 
+
 export{
     loginUser,
-}
+    reNewToken
+} 

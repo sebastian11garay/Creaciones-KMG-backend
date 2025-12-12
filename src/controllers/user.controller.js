@@ -1,6 +1,5 @@
 // se debe de encargar de recibir las peticiones y responder a ellas
 import { encryptedPassword } from "../helpers/bcrypt.helper.js";
-import userModel from "../models/user.model.js";
 import { dbRegisterUser, dbGetAllUsers, dbGetUserById, dbDeletedUserById, dbUserUpdate, dbGetUserByEmail } from "../services/user.service.js";
 
 const  createUser = async (req, res) => {
