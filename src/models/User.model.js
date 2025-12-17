@@ -1,65 +1,52 @@
-import { Schema, model } from "mongoose";
-// creando una instancia del esquema de entidad de user
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    username: {
-        // Reglas
-        type: String,        //define el tipo
-        required: true,      // es obligatorio
-        //Modificadores
-        unique: true,        //obliga a que el valor sea unico
-        trim: true,          //elimina los espacios en blanco (inicio/final del string)
-        lowercase: true      // transforma todo a minusculas
-    },
+    // Campo principal para inicio de sesión, debe ser único y validado
     email: {
         type: String,
         required: true,
         unique: true,
-        trim: true,
-        lowercase: true
+        lowercase: true,
+        trim: true
     },
+    // Contraseña almacenada como hash (nunca en texto plano)
     password: {
         type: String,
-        required: true,
-        trim: true,
-        minLength: 8,
-        maxLength: 12
+        required: true
     },
+    // Nombre de usuario opcional, también puede ser único
+    username: {
+        type: String,
+        unique: true,
+        sparse: true, // Permite que varios documentos tengan 'null' en este campo
+        trim: true
+    },
+    // **ROL CRUCIAL:** Define las capacidades y el perfil asociado
     role: {
         type: String,
         required: true,
-        enum: [ 'super-admin', 'admin', 'colaborator', 'registered'  ],
-        default: 'registered'
+        enum: ['SuperAdmin', 'Admin', 'Mayorista', 'Minorista'], // Restringe los valores posibles
+        default: 'Minorista' // Valor por defecto al registrarse
     },
+    // Estado de la cuenta, permite deshabilitar el acceso
     isActive: {
         type: Boolean,
         default: true
-
     },
-    createDate: {
-        type: Date,
-        default: new Date().now
+    // **RELACIÓN:** Referencia al perfil específico (AdminProfile o ClientProfile)
+    // El tipo de referencia real se determinará en el código de aplicación
+    relatedProfileId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        refPath: 'profileModel' // Define la clave para determinar a qué colección referencia
+    },
+    // Campo auxiliar para Mongoose, define la colección a la que apunta relatedProfileId
+    profileModel: {
+        type: String,
+        required: true,
+        enum: ['AdminProfile', 'ClientProfile']
     }
-    // code: {
-    //     type: String,
-    //     trim: true
-    // }
+}, { timestamps: true }); // Agrega 'createdAt' y 'updatedAt' automáticamente
 
-},{
-    versionKey: false,
-    timestamps: true
-}); 
-
-// crear modelo user basado en el esquema userSchema
-
-const userModel = model(
-    'users',        // nombre de la coleccion
-    userSchema      // esquema asociado al modelo
-);
-
-// exportar el modelo user, para que sea usado en otras partes de la aplicacion 
-export default userModel;
+module.exports = mongoose.model('User', userSchema);
