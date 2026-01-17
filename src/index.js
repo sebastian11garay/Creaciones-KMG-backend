@@ -1,4 +1,5 @@
 import express from 'express';  //IMPORTACION
+import cors from 'cors'
 
 import dbConnection from'./config/mongo.config.js';
 import userRoute from './routes/users.route.js';
@@ -20,6 +21,7 @@ app.get('/health', (req,res) =>{
     });
 });
 
+app.use(cors())
 app.use( express.json() ); 
 
 
@@ -31,5 +33,5 @@ app.use('/api/v1/category', categoryRoute )
 
 //LANZANDO EL SERVIDOR WEB USANDO EXPRESS
 app.listen(PORT, () => {
-    console.log(`server running on http://localhost:${PORT}/health :()`);
+    console.log(`server running on http://localhost:${PORT}`);
 });
