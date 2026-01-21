@@ -84,6 +84,22 @@ const updateDiscountById = async (req, res) => {
 
 }
 
+// const getApplicableDiscountsController = async (req, res) => {
+//     try {
+//         const { purchaseAmount, clientType, couponCode } = req.query;
+
+//         const discounts = await dbGetApplicableDiscounts(
+//             Number(purchaseAmount),
+//             clientType,
+//             couponCode
+//         );
+
+//         res.status(200).json(discounts);
+//     } catch (error) {
+//         res.status(400).json({ error: error.message });
+//     }
+// };
+
 export {
     createDiscount,
     getAllDiscounts,

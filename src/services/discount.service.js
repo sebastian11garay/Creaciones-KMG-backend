@@ -25,6 +25,30 @@ const dbUpdateDiscountById = async ( id, productUpdated ) => {
     );
 }
 
+// const dbGetApplicableDiscounts = async (
+//     purchaseAmount,
+//     clientType,
+//     couponCode = null
+// ) => {
+//     const now = new Date();
+
+//     const query = {
+//         active: true,
+//         startDate: { $lte: now },
+//         endDate: { $gte: now },
+//         minPurchaseAmount: { $lte: purchaseAmount },
+//         targetAudience: { $in: ['Todos', clientType] }
+//     };
+
+//     if (couponCode) {
+//         query.couponCode = couponCode;
+//     }
+
+//     return await discountModel.find(query);
+// };
+
+
+
 
 export {
     dbRegisteredDiscount,
