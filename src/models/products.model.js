@@ -38,8 +38,9 @@ const productsSchema = new Schema ({
     },
 
     category: {
-        type: String,
-        trim: true,
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
     },
 
     tags: [{                // si el usuario busca por  # ej: 'mueca rosada'

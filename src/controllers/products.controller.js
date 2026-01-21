@@ -1,4 +1,4 @@
-import productsModel from "../models/products.model.js";
+// import productsModel from "../models/products.model.js";
 import { dbDeletedProducstById, dbGetAllProducts, dbGetProducstById, dbProductsUpdate, dbRegisterProduct } from "../services/productcs.service.js";
 
 const createProducts = async (req, res) => {
