@@ -24,10 +24,10 @@ const createCategory = async ( req, res ) => {
 
 const getAllCategory = async ( req, res ) => {
     try {
-        const categorys = await dbGetAllCategorys();
+        const categories = await dbGetAllCategorys();
 
         res.json({
-            categorys
+            categories
         });
         
     } catch (error) {
