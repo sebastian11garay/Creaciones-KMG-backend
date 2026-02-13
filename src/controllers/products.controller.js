@@ -9,6 +9,7 @@ const createProducts = async (req, res) => {
 
         const dataRegistered = await dbRegisterProduct( inputData );             
 
+        
         res.json({  
         dataRegistered     
         });
