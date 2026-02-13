@@ -9,7 +9,6 @@ const authenticationUser = async (req, res, next) => {
         if(!token){
             return res.json({msg: 'Token vacia'});
         }
-
          // Paso 2.5: Validar el formato del token (Debe tener 3 partes separadas por puntos)
         const tokenParts = token.split('.');
         if (tokenParts.length !== 3) {
