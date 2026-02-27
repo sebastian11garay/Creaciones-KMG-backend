@@ -40,11 +40,15 @@ const loginUser = async (req,res) => {
     const jsonUserFound = userFound.toObject();   //convertir un bjson a json
 
     delete jsonUserFound.password;
+    delete jsonUserFound.createdAt;
+    delete jsonUserFound.updatedAt;
+
     //paso 5: responder al cliente 
 
     res.json({
         token,
-        user: jsonUserFound
+        user: jsonUserFound,
+        msg: `Bienvenido ${jsonUserFound.name}`
     });
 }
 
