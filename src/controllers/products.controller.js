@@ -13,7 +13,6 @@ const createProducts = async (req, res) => {
         res.json({  
         dataRegistered     
         });
-
         
     } catch (error) {
         console.error(error);

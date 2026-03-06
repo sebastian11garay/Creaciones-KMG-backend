@@ -12,7 +12,7 @@ router.post('/',
     [ authenticationUser,authUser],  
     createUser );
 router.get( '/', 
-        [ authenticationUser,authUser],  
+        // [ authenticationUser,authUser],  
      getAllUsers) ;
 router.get( '/:idUser',    
      [ authenticationUser,authUser],  
@@ -23,6 +23,7 @@ router.delete('/:idUser',
 router.patch( '/:idUser',    
      [ authenticationUser,authUser],  
  updateUserById );
+ 
 
 
 //exportando router usando commonJS

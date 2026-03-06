@@ -33,7 +33,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        required: true,
+        
         enum: ALLOWED_ROLES,
         default: ALLOWED_ROLES.registered
     },

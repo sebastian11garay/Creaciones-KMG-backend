@@ -18,7 +18,7 @@ const productsSchema = new Schema ({
     size: {
         type: String,          
         trim: true,
-        required: true,
+        
 
     },
 
@@ -54,9 +54,10 @@ const productsSchema = new Schema ({
         trim: true
     }],
 
-    isActive: {
-        type: Boolean,
-        default: true,
+    status: {
+        type: String,
+        default: 'active',
+        enum: ['active','inactive']
     }
 
 
