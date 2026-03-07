@@ -11,7 +11,8 @@ const createProducts = async (req, res) => {
 
         
         res.json({  
-        dataRegistered     
+        dataRegistered,
+        msg: 'Producto creado exitosamente'  
         });
 
         

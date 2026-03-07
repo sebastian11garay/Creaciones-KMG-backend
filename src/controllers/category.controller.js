@@ -10,12 +10,13 @@ const createCategory = async ( req, res ) => {
         const dataRegistered = await dbRegisterCategory (inputData);
 
         res.json({
-            dataRegistered
+            dataRegistered,
+            msg: 'Categoria creada correctamente'
         });
         
     } catch (error) {
          console.error(error);
-        res.json({
+        return res.json({
             msg: 'Error: no se puede crear la categoria'
        
         });
