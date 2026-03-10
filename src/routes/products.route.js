@@ -19,7 +19,7 @@ router.delete('/:idProduct',
         [ authenticationUser,authUser(ALLOWED_ROLES)],  
     deleteproductById);
 router.patch( '/:idProduct',
-    [ authenticationUser,authUser],  
+    [ authenticationUser,authUser(ALLOWED_ROLES)],  
     updateProductById );
 
 

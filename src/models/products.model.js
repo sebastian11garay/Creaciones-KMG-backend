@@ -49,10 +49,9 @@ const productsSchema = new Schema ({
     },
 
     category: {
-        // type: Schema.Types.ObjectId,
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'category',
-        // required: true
+        required: true
     },
 
     tags: [{                // si el usuario busca por  # ej: 'mueca rosada'

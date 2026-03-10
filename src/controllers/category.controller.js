@@ -34,7 +34,7 @@ const getAllCategory = async ( req, res ) => {
     } catch (error) {
         console.error(error);
         res.json({
-            msg: 'Error: no se puede ver la categoria'
+            msg: 'Error: no se puede ver las categorias'
        
         });
     }
@@ -67,7 +67,8 @@ const deletedCategoryById = async (req, res) => {
         const categoryDeleted = await dbDeletedCategoryById( idCategory );
 
     res.json({
-        categoryDeleted
+        categoryDeleted,
+        msg: 'Categoria eliminada correctamente'
     });
 
 
@@ -90,7 +91,8 @@ const updateCategoryById = async (req, res) => {
         const categoryUpdate = await dbUpdateCategoryById ( idCategory, inputData );
 
     res.json({
-        categoryUpdate
+        categoryUpdate,
+        msg: 'Categoria actualizada correctamente'
     });
 
 
