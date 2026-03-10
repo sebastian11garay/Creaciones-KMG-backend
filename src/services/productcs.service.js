@@ -4,11 +4,11 @@ const dbRegisterProduct = async (newProduct) => {
     return await productsModel.create(newProduct);   // async/await por que el modelo retorna una promesa
 }
 const dbGetAllProducts = async () => {
-    return await productsModel.find();
+    return await productsModel.find().populate('category', 'name');  // populate para traer la info de la categoria relacionada
 }
 
 const dbGetProducstById =  async ( _id) => {
-   return await productsModel.findOne({ _id });
+   return await productsModel.findOne({ _id }).populate('category', 'name');  // populate para traer la info de la categoria relacionada, pero solo el campo name
 }
 
 const dbDeletedProducstById = async ( _id) => {
@@ -21,7 +21,7 @@ const dbProductsUpdate = async ( id, productUpdated ) => {
         id,
         productUpdated,
         { new: true }
-    );
+    );  // populate para traer la info de la categoria relacionada, pero solo el campo name
 }
 
 

@@ -18,7 +18,6 @@ const authUser = (allowedRoles = []) => {
                 });
             }
 
-            console.log(`Usuario autorizado con rol: ${role}`);
             next();
 
         } catch (error) {
