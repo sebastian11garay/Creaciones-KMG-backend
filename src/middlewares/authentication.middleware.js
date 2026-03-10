@@ -2,21 +2,13 @@ import { verifyToken } from "../helpers/jwt.helper.js";
 import { dbGetUserById } from "../services/user.service.js";
 
 const authenticationUser = async (req, res, next) => {
-    
-    try {
-        const token = req.header( 'X-Token' );    
 
-        if(!token){
-            return res.json({msg: 'Token vacia'});
+    try {
+        const token = req.header('Authorization');
+        if (!token) {
+            return res.json({ msg: 'Token vacia' });
         }
-         // Paso 2.5: Validar el formato del token (Debe tener 3 partes separadas por puntos)
-        const tokenParts = token.split('.');
-        if (tokenParts.length !== 3) {
-            return res.status(400).json({
-                msg: 'Error: Formato de token invalido (Faltan componentes)'
-            });
-        }
-    
+
         const payload = verifyToken(token);
         if (!payload) {
             return res.status(401).json({
@@ -40,7 +32,7 @@ const authenticationUser = async (req, res, next) => {
             return res.status(401).json({ msg: 'Token no valido - usuario con estado inactivo' });
         }
 
-        
+
         req.payload = payload;
         req.user = user;
 
@@ -49,7 +41,7 @@ const authenticationUser = async (req, res, next) => {
 
 
     } catch (error) {
-        res.json ({msg: 'Error: token invaliso.'})
+        res.json({ msg: 'Error: token invaliso.' })
     }
 }
 

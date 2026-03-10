@@ -23,7 +23,7 @@ const productsSchema = new Schema ({
     size: {
         type: String,          
         trim: true,
-        required: true,
+        
 
     },
 

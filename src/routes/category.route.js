@@ -1,4 +1,4 @@
-import { Router } from "express";   
+import { Router } from "express";
 import { createCategory, deletedCategoryById, getAllCategory, getCategoryById, updateCategoryById } from "../controllers/category.controller.js";
 import authenticationUser from "../middlewares/authentication.middleware.js";
 import authUser from "../middlewares/authorization.middleware.js";

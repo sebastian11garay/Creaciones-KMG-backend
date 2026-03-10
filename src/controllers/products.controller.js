@@ -14,7 +14,6 @@ const createProducts = async (req, res) => {
         dataRegistered,
         msg: 'Producto creado exitosamente'  
         });
-
         
     } catch (error) {
         console.error(error);
