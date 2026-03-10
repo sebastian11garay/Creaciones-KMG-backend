@@ -14,6 +14,11 @@ const productsSchema = new Schema ({
         required: true,
         
     },
+    image:{
+        type: String,               // URL de una imagen de la categoría
+        default: null,
+        // require: true
+    },
 
     size: {
         type: String,          
@@ -44,7 +49,8 @@ const productsSchema = new Schema ({
     },
 
     category: {
-        type: Schema.Types.ObjectId,
+        // type: Schema.Types.ObjectId,
+        type: String,
         ref: 'category',
         // required: true
     },
@@ -54,10 +60,9 @@ const productsSchema = new Schema ({
         trim: true
     }],
 
-    status: {
-        type: String,
-        default: 'active',
-        enum: ['active','inactive']
+    isActive: {
+        type: Boolean,
+        default: false
     }
 
 

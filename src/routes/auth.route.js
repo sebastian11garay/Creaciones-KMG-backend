@@ -3,6 +3,7 @@ import { createUser } from "../controllers/user.controller.js";
 import { loginUser, reNewToken } from "../controllers/auth.controller.js";
 import authenticationUser from "../middlewares/authentication.middleware.js";
 import authUser from "../middlewares/authorization.middleware.js";
+import { ALLOWED_ROLES } from "../config/global.config.js";
 
 
 
@@ -18,7 +19,7 @@ router.post( '/register', createUser);              //solo registra usuario
    
 router.get(
     '/renew-token', 
-    [authenticationUser, authUser],
+    [authenticationUser, authUser(ALLOWED_ROLES)],
     reNewToken
  );
 

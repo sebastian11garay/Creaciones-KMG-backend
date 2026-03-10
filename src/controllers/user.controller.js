@@ -9,18 +9,16 @@ const createUser = async (req, res) => {
     try {
         const inputData = req.body;                     //extraer el cuerpo de la peticion
 
-        // paso 1: verificar si el usuario existe
-        const userFound = await dbGetUserByEmail(inputData.email);
+    // paso 1: verificar si el usuario existe
+    const userFound = await dbGetUserByEmail  (inputData.email);
+    
+    if (userFound) {
+        return res.json({ msg: 'Error: no se puede registrar el usario, usario ya registrado' });
+    }
+     
+    // paso2: encriptar la clave del usuario
 
-        if (userFound) {
-            return res.json({ msg: 'error: no se puede registrar el usario ya esta registrado' });
-        }
-
-        // paso2: encriptar la clave del usuario
-
-        inputData.password = encryptedPassword(inputData.password);
-        inputData.role = "registered";
-        console.log('inputData antes de registrar', inputData);
+    inputData.password = encryptedPassword (inputData.password);
 
         //paso3: registrar el usuario
         //registrar los datos usandon uselModel
@@ -29,16 +27,22 @@ const createUser = async (req, res) => {
         //paso 4: eliminar datos senseibles
         const jsonUserFound = dataRegistered.toObject();   //convertir un bjson a json
 
-        delete jsonUserFound.password;
+    delete jsonUserFound.password;
+    delete jsonUserFound.createdAt;
+    delete jsonUserFound.updatedAt;
+
+
 
         // responder al usuario
 
 
 
-        res.json({
-
-            user: jsonUserFound    // ECMAScript 2015
-        });
+    res.json({ 
+         
+        
+        msg: 'Registro exitoso',
+        user: jsonUserFound       // ECMAScript 2015
+     });
 
     }
     catch (error) {

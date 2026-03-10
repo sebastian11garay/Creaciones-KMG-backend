@@ -40,45 +40,53 @@ const loginUser = async (req,res) => {
     const jsonUserFound = userFound.toObject();   //convertir un bjson a json
 
     delete jsonUserFound.password;
+    delete jsonUserFound.createdAt;
+    delete jsonUserFound.updatedAt;
+
     //paso 5: responder al cliente 
 
     res.json({
         token,
-        user: jsonUserFound
+        user: jsonUserFound,
+        msg: `Bienvenido ${jsonUserFound.name}`
     });
 }
 
 const reNewToken = async (req, res) => {
 // paso 1: extrae el payload del onjeto req que hemos asignado 
-    const payload = req.payload;
-    
+    try {
+        const payload = req.payload;
+        
 
-    // paso 2: elimina propiedades inecesarias para el cliente
-    delete payload.iat;
-    delete payload.exp;
+        //paso 3: verificar si el usuario sigue existiendo en la base de datos
+        const userFound = await dbGetUserByEmail( payload.email);
+        
+        if( !userFound ) {
+            return res.json({ msg: 'usuario no existe. por favor haga su registro' });
+        }
+    // Paso 3: Crear el nuevo token con el payload actualizado
+        const newPayload = {
+            id: userFound._id,      // Referenciar quien hace que en la applicacion
+            name: userFound.name,   // Puedo usar este dato para personalizar mensajes
+            email: userFound.email, // Puedo usar este dato para enviar mensajes anonimos entre usuarios de la aplicacion
+            role: userFound.role    // Puedo usar este dato para acceder a las diferentes rutas permisionadas en el FrontEnd
+        };
 
-    //paso 3: verificar si el usuario sigue existiendo en la base de datos
-    const userFound = await dbGetUserByEmail( payload.email);
+        // Paso 4: Generar el nuevo token
+        const newToken = generateToken(newPayload);
 
-    if( !userFound ) {
-        return res.json({ msg: 'usuario no existe. por favor haga su registro' });
+        // Paso 5: Eliminar las propiedades con datos sensibles 
+        const jsonUserFound = userFound.toObject();     // Convertir un documento de MongoDB (BJSON), en un JavaScript Object (JSON)
+        delete jsonUserFound.password;
+        delete jsonUserFound.createdAt;
+        delete jsonUserFound.updatedAt;                  // Elimina la propiedad 'password' del JSON
+
+        // Paso 6: Envia respuesta al cliente con el nuevo Token y los datos actualizados el
+        res.json({ token: newToken, user: jsonUserFound });
+        
+    } catch (error) {
+        console.error(error)
     }
-//paso 4: generar un nuevo token 
-      
-    const token = generateToken ({
-        id: userFound._id,
-        name: userFound.name,
-        email: userFound.email,
-        role: userFound.role
-    });
-
-    //paso 5: eliminar propiedades con datos sensibles 
-
-    const jsonUserFound = userFound.toObject();
-    delete jsonUserFound.password;
-
-    // paso 6: responder al cliente
-    res.json({token, user: jsonUserFound});
 
 } 
 
