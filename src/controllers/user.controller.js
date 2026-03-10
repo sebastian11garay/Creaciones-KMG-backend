@@ -2,11 +2,12 @@
 
 import { encryptedPassword } from "../helpers/bcrypt.js";
 import { dbRegisterUser, dbGetAllUsers, dbGetUserById, dbDeletedUserById, dbUserUpdate, dbGetUserByEmail } from "../services/user.service.js";
+import { ALLOWED_ROLES } from "../config/global.config.js";
 
-const  createUser = async (req, res) => {
+const createUser = async (req, res) => {
 
     try {
-    const inputData  = req.body;                     //extraer el cuerpo de la peticion
+        const inputData = req.body;                     //extraer el cuerpo de la peticion
 
     // paso 1: verificar si el usuario existe
     const userFound = await dbGetUserByEmail  (inputData.email);
@@ -19,12 +20,12 @@ const  createUser = async (req, res) => {
 
     inputData.password = encryptedPassword (inputData.password);
 
-    //paso3: registrar el usuario
-    //registrar los datos usandon uselModel
-    const dataRegistered = await dbRegisterUser( inputData );             //registrar los datos en la base de datos
+        //paso3: registrar el usuario
+        //registrar los datos usandon uselModel
+        const dataRegistered = await dbRegisterUser(inputData);             //registrar los datos en la base de datos
 
-    //paso 4: eliminar datos senseibles
-    const jsonUserFound = dataRegistered.toObject();   //convertir un bjson a json
+        //paso 4: eliminar datos senseibles
+        const jsonUserFound = dataRegistered.toObject();   //convertir un bjson a json
 
     delete jsonUserFound.password;
     delete jsonUserFound.createdAt;
@@ -32,9 +33,9 @@ const  createUser = async (req, res) => {
 
 
 
-    // responder al usuario
+        // responder al usuario
 
-    
+
 
     res.json({ 
          
@@ -56,80 +57,80 @@ const getAllUsers = async (req, res) => {
     try {
         const users = await dbGetAllUsers();
         res.json({
-            
+
             users
         });
-        
+
     } catch (error) {
         console.error(error);
         res.json({
             msg: 'error: no se pudo obtener el listado de usuarios'
         });
     }
-    
+
 }
 
-const getUserById = async ( req, res ) => {
+const getUserById = async (req, res) => {
     try {
         const idUser = req.params.idUser;
-    
-        const userFound = await dbGetUserById (
+
+        const userFound = await dbGetUserById(
             idUser);
-    
-        res.json ({
+
+        res.json({
             userFound
         });
     }
-        
-     catch (error) {
-        console.error( error );
-        res.json ({
+
+    catch (error) {
+        console.error(error);
+        res.json({
             msg: 'Error: no se pudo obtener usuario por ID'
-            
+
         });
 
     }
 }
 
-const deleteUserById = async ( req, res ) => {
+const deleteUserById = async (req, res) => {
     try {
         const idUser = req.params.idUser;
-    
-        const userDeleted = await dbDeletedUserById( 
-            idUser );
-    
+
+        const userDeleted = await dbDeletedUserById(
+            idUser);
+
         res.json({
             userDeleted
         });
-            
-        
+
+
     } catch (error) {
         console.error(error);
         res.json({
-            msg:'Error: no se pudo eliminar el usuario por Id'
+            msg: 'Error: no se pudo eliminar el usuario por Id'
         })
-        
+
     }
 
-    
+
 }
 
 const updateUserById = async (req, res) => {
     try {
-        
+
         const inputData = req.body;
         const idUser = req.params.idUser;
-    
-        const userUpdate = await dbUserUpdate ( idUser, inputData);
-        
-        
-        
-    
+
+        const userUpdate = await dbUserUpdate(idUser, inputData);
+
+
+
+
         //  const userUpdate = await userModel.findOneAndUpdate(
         //     {_id: idUser},      //objeto de consulta debe terner el ID
         //     inputData              //Datos a actualizar
         // );
-        
+
         res.json({
             userUpdate
         });
@@ -139,14 +140,14 @@ const updateUserById = async (req, res) => {
         res.json({
             msg: 'Error: no se pudo actualizar el usuario por ID'
         });
-        
+
     }
 
 
 }
 
 
-export { 
+export {
     createUser,
     getAllUsers,
     getUserById,

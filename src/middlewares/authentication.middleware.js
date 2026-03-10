@@ -2,22 +2,28 @@ import { verifyToken } from "../helpers/jwt.helper.js";
 import { dbGetUserById } from "../services/user.service.js";
 
 const authenticationUser = async (req, res, next) => {
-    
     try {
-        const token = req.header( 'X-Token' );    
+        // Paso 1: Extraer el token del header
+        const token = req.header('X-Token');
 
-        if(!token){
-            return res.json({msg: 'Token vacia'});
+        // Paso 2: Validar que el token exista
+        if (!token) {
+            return res.status(401).json({
+                msg: 'Error: Cadena del token vacia'
+            });
         }
-         // Paso 2.5: Validar el formato del token (Debe tener 3 partes separadas por puntos)
+
+        // Paso 2.5: Validar el formato del token (Debe tener 3 partes separadas por puntos)
         const tokenParts = token.split('.');
         if (tokenParts.length !== 3) {
             return res.status(400).json({
                 msg: 'Error: Formato de token invalido (Faltan componentes)'
             });
         }
-    
+
+        // Paso 3: Extraer el payload del token (decodificarlo)
         const payload = verifyToken(token);
+
         if (!payload) {
             return res.status(401).json({
                 msg: 'Error: Token invalido o expirado'
@@ -40,16 +46,16 @@ const authenticationUser = async (req, res, next) => {
             return res.status(401).json({ msg: 'Token no valido - usuario con estado inactivo' });
         }
 
-        
+        // Paso 7: Enviar el payload a traves el objeto Request
         req.payload = payload;
-        req.user = user;
+        req.user = user;    // OPCIONAL: Enviar el usuario completo si se requiere en endpoints posteriores
 
+        // Paso 8: El pasamos el control del flujo de la aplicacion a la siguiente funcion
         next();
 
-
-
     } catch (error) {
-        res.json ({msg: 'Error: token invaliso.'})
+        console.error(error);
+        res.json({ msg: 'Error token invalido' });
     }
 }
 

@@ -1,23 +1,32 @@
-import { ALLOWED_ROLES } from "../config/global.config.js";
 
 const authUser = (allowedRoles = []) => {
     return (req, res, next) => {
-
         try {
             const { role } = req.payload;
-            if(!role) {
-                return res.json ({msg: 'Error: No tiene permisos (rol no define)'});
-            }   
-            if (!allowedRoles.includes(role)){
-                return res.json({msg: 'Error: no esta autorizado para esta acccion'});
+
+            // Verificar si existe el rol en el payload
+            if (!role) {
+                return res.status(403).json({
+                    msg: 'Error: No tiene permisos (Rol no definido)'
+                });
             }
+
+            // Validar si el rol del usuario esta en la lista de roles permitidos para esta ruta
+            if (!allowedRoles.includes(role)) {
+                return res.status(403).json({
+                    msg: `Error: El rol '${role}' no esta autorizado para esta accion`
+                });
+            }
+
+            console.log(`Usuario autorizado con rol: ${role}`);
             next();
-        
 
         } catch (error) {
-            res.json({msg: 'Error: en autorizacion del servicio'});
+            console.error(error);
+            res.status(500).json({ msg: 'Error de autorizacion del servidor' });
         }
     }
 }
+
 
 export default authUser;

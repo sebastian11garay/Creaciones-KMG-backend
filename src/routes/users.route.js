@@ -24,6 +24,7 @@ router.delete('/:idUser',
 router.patch( '/:idUser',    
      [ authenticationUser,authUser(ALLOWED_ROLES)],  
  updateUserById );
+ 
 
 
 //exportando router usando commonJS
