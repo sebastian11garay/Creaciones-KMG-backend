@@ -44,11 +44,11 @@ const getProductsById = async (req, res) => {
     try {
          const idProduct = req.params.idProduct;
     
-        const productFound = await dbGetProducstById (
+        const data = await dbGetProducstById (
             idProduct);
     
         res.json ({
-            productFound
+            data
         });
     } catch (error) {
         console.error(error);
@@ -90,7 +90,8 @@ const updateProductById = async ( req,res ) => {
         const productcUpdate = await dbProductsUpdate( idProduct, inputData );
     
         res.json({
-            productcUpdate
+            productcUpdate,
+            msg: 'Producto actualizado exitosamente'
         });
     } catch (error) {
         console.error(error)
