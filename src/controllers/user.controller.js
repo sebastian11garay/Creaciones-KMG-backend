@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
     const userFound = await dbGetUserByEmail  (inputData.email);
     
     if (userFound) {
-        return res.json({ msg: 'Error: no se puede registrar el usario, usario ya registrado' });
+        return res.status(400).json({ msg: 'Error: no se puede registrar el usario, usario ya registrado' });
     }
      
     // paso2: encriptar la clave del usuario
@@ -47,7 +47,7 @@ const createUser = async (req, res) => {
     }
     catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg: 'error: no se pudo crear el usuario'
         });
     }
@@ -56,14 +56,14 @@ const createUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
     try {
         const users = await dbGetAllUsers();
-        res.json({
+        res.status(200).json({
 
             users
         });
 
     } catch (error) {
-        console.error(error);
-        res.json({
+        console.statuserror(error);
+        res.status(500).json({
             msg: 'error: no se pudo obtener el listado de usuarios'
         });
     }
@@ -77,14 +77,14 @@ const getUserById = async (req, res) => {
         const userFound = await dbGetUserById(
             idUser);
 
-        res.json({
+        res.status(200).json({
             userFound
         });
     }
 
     catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se pudo obtener usuario por ID'
 
         });
