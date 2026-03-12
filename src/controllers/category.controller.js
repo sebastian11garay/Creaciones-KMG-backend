@@ -2,26 +2,31 @@
 import { dbDeletedCategoryById, dbGetAllCategorys, dbGetCategoryById, dbRegisterCategory, dbUpdateCategoryById } from "../services/category.service.js";
 
 const createCategory = async (req, res) => {
+const createCategory = async (req, res) => {
     try {
         const inputData = req.body;
 
         console.log(inputData);
 
         const dataRegistered = await dbRegisterCategory(inputData);
+        const dataRegistered = await dbRegisterCategory(inputData);
 
         res.status(201).json({
             dataRegistered,
         });
+
 
     } catch (error) {
          console.error(error);
         return res.status(500).json({
             msg: 'Error: no se puede crear la categoria'
 
+
         });
     }
 }
 
+const getAllCategory = async (req, res) => {
 const getAllCategory = async (req, res) => {
     try {
         const categories = await dbGetAllCategorys();
@@ -29,6 +34,7 @@ const getAllCategory = async (req, res) => {
         res.json({
             categories
         });
+
 
     } catch (error) {
         console.error(error);
@@ -43,6 +49,7 @@ const getCategoryById = async (req, res) => {
 
     try {
         const idCategory = req.params.idCategory;
+        const idCategory = req.params.idCategory;
 
         const data = await dbGetCategoryById(idCategory);
 
@@ -52,8 +59,10 @@ const getCategoryById = async (req, res) => {
 
     } catch (error) {
         console.error(error);
+        console.error(error);
         res.json({
             msg: 'Error: no se puede encontrar la categoria'
+
 
         });
     }
@@ -64,6 +73,7 @@ const deletedCategoryById = async (req, res) => {
     try {
         const idCategory = req.params.idCategory;
         const categoryDeleted = await dbDeletedCategoryById(idCategory);
+        const categoryDeleted = await dbDeletedCategoryById(idCategory);
 
     res.json({
         categoryDeleted,
@@ -72,10 +82,12 @@ const deletedCategoryById = async (req, res) => {
 
 
 
+
     } catch (error) {
         console.error(error);
         res.json({
             msg: 'Error: no se puede borrar la categoria'
+
 
         });
     }
@@ -87,6 +99,8 @@ const updateCategoryById = async (req, res) => {
         const idCategory = req.params.idCategory;
 
 
+
+        const categoryUpdate = await dbUpdateCategoryById(idCategory, inputData);
         const categoryUpdate = await dbUpdateCategoryById(idCategory, inputData);
 
     res.json({
@@ -96,10 +110,12 @@ const updateCategoryById = async (req, res) => {
 
 
 
+
     } catch (error) {
         console.error(error);
         res.json({
             msg: 'Error: no se puede actualizar la categoria'
+
 
         });
     }
@@ -112,5 +128,6 @@ export {
     getAllCategory,
     getCategoryById,
     deletedCategoryById,
+    updateCategoryById
     updateCategoryById
 }
