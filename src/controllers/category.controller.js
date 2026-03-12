@@ -2,13 +2,11 @@
 import { dbDeletedCategoryById, dbGetAllCategorys, dbGetCategoryById, dbRegisterCategory, dbUpdateCategoryById } from "../services/category.service.js";
 
 const createCategory = async (req, res) => {
-const createCategory = async (req, res) => {
     try {
         const inputData = req.body;
 
         console.log(inputData);
 
-        const dataRegistered = await dbRegisterCategory(inputData);
         const dataRegistered = await dbRegisterCategory(inputData);
 
         res.status(201).json({
@@ -26,7 +24,6 @@ const createCategory = async (req, res) => {
     }
 }
 
-const getAllCategory = async (req, res) => {
 const getAllCategory = async (req, res) => {
     try {
         const categories = await dbGetAllCategorys();
@@ -48,7 +45,6 @@ const getAllCategory = async (req, res) => {
 const getCategoryById = async (req, res) => {
 
     try {
-        const idCategory = req.params.idCategory;
         const idCategory = req.params.idCategory;
 
         const data = await dbGetCategoryById(idCategory);
@@ -72,7 +68,6 @@ const getCategoryById = async (req, res) => {
 const deletedCategoryById = async (req, res) => {
     try {
         const idCategory = req.params.idCategory;
-        const categoryDeleted = await dbDeletedCategoryById(idCategory);
         const categoryDeleted = await dbDeletedCategoryById(idCategory);
 
     res.json({
@@ -101,7 +96,6 @@ const updateCategoryById = async (req, res) => {
 
 
         const categoryUpdate = await dbUpdateCategoryById(idCategory, inputData);
-        const categoryUpdate = await dbUpdateCategoryById(idCategory, inputData);
 
     res.json({
         categoryUpdate,
@@ -128,6 +122,5 @@ export {
     getAllCategory,
     getCategoryById,
     deletedCategoryById,
-    updateCategoryById
     updateCategoryById
 }
