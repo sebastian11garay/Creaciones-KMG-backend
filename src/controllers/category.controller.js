@@ -9,15 +9,16 @@ const createCategory = async (req, res) => {
 
         const dataRegistered = await dbRegisterCategory(inputData);
 
-        res.json({
+        res.status(201).json({
             dataRegistered,
-            msg: 'Categoria creada correctamente'
         });
+
 
     } catch (error) {
          console.error(error);
-        return res.json({
+        return res.status(500).json({
             msg: 'Error: no se puede crear la categoria'
+
 
         });
     }
@@ -30,6 +31,7 @@ const getAllCategory = async (req, res) => {
         res.json({
             categories
         });
+
 
     } catch (error) {
         console.error(error);
@@ -53,8 +55,10 @@ const getCategoryById = async (req, res) => {
 
     } catch (error) {
         console.error(error);
+        console.error(error);
         res.json({
             msg: 'Error: no se puede encontrar la categoria'
+
 
         });
     }
@@ -73,10 +77,12 @@ const deletedCategoryById = async (req, res) => {
 
 
 
+
     } catch (error) {
         console.error(error);
         res.json({
             msg: 'Error: no se puede borrar la categoria'
+
 
         });
     }
@@ -88,6 +94,7 @@ const updateCategoryById = async (req, res) => {
         const idCategory = req.params.idCategory;
 
 
+
         const categoryUpdate = await dbUpdateCategoryById(idCategory, inputData);
 
     res.json({
@@ -97,10 +104,12 @@ const updateCategoryById = async (req, res) => {
 
 
 
+
     } catch (error) {
         console.error(error);
         res.json({
             msg: 'Error: no se puede actualizar la categoria'
+
 
         });
     }

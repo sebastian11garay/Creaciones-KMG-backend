@@ -10,7 +10,7 @@ router.post( '/',
     [ authenticationUser,authUser(ALLOWED_ROLES)],  
     createProducts );
 router.get( '/', 
-    [ authenticationUser,authUser(ALLOWED_ROLES)],  
+    // [ authenticationUser,authUser(ALLOWED_ROLES)],  
     getAllProducts) ;
 router.get( '/:idProduct', 
     [ authenticationUser,authUser(ALLOWED_ROLES)],  

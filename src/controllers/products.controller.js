@@ -10,15 +10,14 @@ const createProducts = async (req, res) => {
         const dataRegistered = await dbRegisterProduct( inputData );             
 
         
-        res.json({  
+        res.status(201).json({  
         dataRegistered,
-        msg: 'Producto creado exitosamente'  
         });
         
     } catch (error) {
         console.error(error);
-        res.json({
-            msg: 'Error: no se puede crear el producto'
+        res.status(500).json({
+            msg: 'Error: no se puede crear el producto, puede que ya exista'
         });
     }
 }
