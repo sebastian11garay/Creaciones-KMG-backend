@@ -9,7 +9,7 @@ router.post( '/',
     [ authenticationUser,authUser(ALLOWED_ROLES)],  
     createCategory );
 router.get( '/',
-    [ authenticationUser,authUser(ALLOWED_ROLES)],  
+    // [ authenticationUser,authUser(ALLOWED_ROLES)],  
     getAllCategory) ;
 router.get( '/:idCategory', 
     [ authenticationUser,authUser(ALLOWED_ROLES)],  

@@ -1,4 +1,4 @@
-import userModel from "../models/user.model.js"
+import userModel from "../models/User.model.js";
 
 //servicio: se debe de encargar solo de la comunicacion directa de la base de datos
 const dbRegisterUser = async (newUser) => {

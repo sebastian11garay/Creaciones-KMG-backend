@@ -16,7 +16,10 @@ const userSchema = new Schema({
         trim: true,          //elimina los espacios en blanco (inicio/final del string)
         lowercase: true      // transforma todo a minusculas
     },
-    phone: String,
+    phone: {
+       type: String,
+       trim: true,
+    },
     email: {
         type: String,
         required: true,
@@ -33,7 +36,6 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        
         enum: ALLOWED_ROLES,
         default: ALLOWED_ROLES.registered
     },

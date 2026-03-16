@@ -55,7 +55,7 @@ const authenticationUser = async (req, res, next) => {
 
     } catch (error) {
         console.error(error);
-        res.json({ msg: 'Error token invalido' });
+        res.status(500).json({ msg: 'Error token invalido' });
     }
 }
 
