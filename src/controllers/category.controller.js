@@ -26,13 +26,13 @@ const getAllCategory = async (req, res) => {
     try {
         const categories = await dbGetAllCategorys();
 
-        res.json({
+        res.status(200).json({
             categories
         });
 
     } catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se puede ver las categorias'
        
         });
@@ -46,13 +46,13 @@ const getCategoryById = async (req, res) => {
 
         const data = await dbGetCategoryById(idCategory);
 
-        res.json({
+        res.status(200).json({
             data
         });
 
     } catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se puede encontrar la categoria'
 
         });
@@ -65,7 +65,7 @@ const deletedCategoryById = async (req, res) => {
         const idCategory = req.params.idCategory;
         const categoryDeleted = await dbDeletedCategoryById(idCategory);
 
-    res.json({
+    res.status(204).json({
         categoryDeleted,
         msg: 'Categoria eliminada correctamente'
     });
@@ -74,7 +74,7 @@ const deletedCategoryById = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se puede borrar la categoria'
 
         });
@@ -89,7 +89,7 @@ const updateCategoryById = async (req, res) => {
 
         const categoryUpdate = await dbUpdateCategoryById(idCategory, inputData);
 
-    res.json({
+    res.status(200).json({
         categoryUpdate,
         msg: 'Categoria actualizada correctamente'
     });
@@ -98,7 +98,7 @@ const updateCategoryById = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se puede actualizar la categoria'
 
         });

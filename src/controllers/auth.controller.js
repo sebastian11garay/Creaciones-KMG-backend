@@ -11,7 +11,7 @@ const loginUser = async (req,res) => {
     const userFound = await dbGetUserByEmail  (inputData.email);
         
         if ( ! userFound ) {
-            return res.json({ msg: 'No puede logearse. por favor haga su registro' });
+            return res.status(400).json({ msg: 'No puede logearse. por favor haga su registro' });
         }
          
 
@@ -20,7 +20,7 @@ const loginUser = async (req,res) => {
     const isMatch = verifyEncriptedPassword ( inputData.password, userFound.password );
 
     if ( ! isMatch ) {
-        return res.json({ msg: 'credenciales invalidas' });
+        return res.status(400).json({ msg: 'credenciales invalidas' });
     }
 
     //paso 3: generar credencial digital(Token)
@@ -45,7 +45,7 @@ const loginUser = async (req,res) => {
 
     //paso 5: responder al cliente 
 
-    res.json({
+    res.status(201).json({
         token,
         user: jsonUserFound,
         msg: `Bienvenido ${jsonUserFound.name}`
@@ -62,7 +62,7 @@ const reNewToken = async (req, res) => {
         const userFound = await dbGetUserByEmail( payload.email);
         
         if( !userFound ) {
-            return res.json({ msg: 'usuario no existe. por favor haga su registro' });
+            return res.status(400).json({ msg: 'usuario no existe. por favor haga su registro' });
         }
     // Paso 3: Crear el nuevo token con el payload actualizado
         const newPayload = {
@@ -82,10 +82,14 @@ const reNewToken = async (req, res) => {
         delete jsonUserFound.updatedAt;                  // Elimina la propiedad 'password' del JSON
 
         // Paso 6: Envia respuesta al cliente con el nuevo Token y los datos actualizados el
-        res.json({ token: newToken, user: jsonUserFound });
+        res.status(201).json({ token: newToken, user: jsonUserFound });
         
     } catch (error) {
         console.error(error)
+        res.status(500).json({
+            msg: 'Error: no se puede renovar token'
+        });
+    
     }
 
 } 

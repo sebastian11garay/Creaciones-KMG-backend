@@ -31,13 +31,9 @@ const createUser = async (req, res) => {
     delete jsonUserFound.createdAt;
     delete jsonUserFound.updatedAt;
 
-
-
         // responder al usuario
 
-
-
-    res.json({ 
+    res.status(201).json({ 
          
         
         msg: 'Registro exitoso',
@@ -99,14 +95,14 @@ const deleteUserById = async (req, res) => {
         const userDeleted = await dbDeletedUserById(
             idUser);
 
-        res.json({
+        res.status(204).json({
             userDeleted
         });
 
 
     } catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se pudo eliminar el usuario por Id'
         })
 
@@ -131,13 +127,13 @@ const updateUserById = async (req, res) => {
         //     inputData              //Datos a actualizar
         // );
 
-        res.json({
+        res.status(200).json({
             userUpdate
         });
 
     } catch (error) {
         console.error(error)
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se pudo actualizar el usuario por ID'
         });
 

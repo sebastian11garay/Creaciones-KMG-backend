@@ -25,14 +25,14 @@ const createProducts = async (req, res) => {
 const getAllProducts = async (req, res) => {
     try {
         const products = await dbGetAllProducts();
-        res.json({
+        res.status(200).json({
 
             products
         })
         
     } catch (error) {
         console.error(error)
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se pudo obtener el listado de productos'
 
         });
@@ -46,12 +46,12 @@ const getProductsById = async (req, res) => {
         const data = await dbGetProducstById (
             idProduct);
     
-        res.json ({
+        res.status(200).json ({
             data
         });
     } catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se pudo obtener producto por ID'
         });
     }
@@ -64,14 +64,14 @@ const deleteproductById = async ( req, res ) => {
         const productcDeleted = await dbDeletedProducstById( 
             idProduct );
     
-        res.json({
+        res.status(204).json({
             productcDeleted
         });
             
         
     } catch (error) {
         console.error(error);
-        res.json({
+        res.status(500).json({
             msg:'Error: no se pudo eliminar el usuario por Id'
         })
         
@@ -88,13 +88,13 @@ const updateProductById = async ( req,res ) => {
     
         const productcUpdate = await dbProductsUpdate( idProduct, inputData );
     
-        res.json({
+        res.status(200).json({
             productcUpdate,
             msg: 'Producto actualizado exitosamente'
         });
     } catch (error) {
         console.error(error)
-        res.json({
+        res.status(500).json({
             msg: 'Error: no se pudo actualizar el producto por ID'
         });
     }
