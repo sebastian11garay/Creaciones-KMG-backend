@@ -69,7 +69,7 @@ const confirmAcount = async (req, res) => {
         }
         //si es el codigo correcto lo confirmamos y lo demjamos pasar
 
-        const userConfirm = await dbConfirmUser(user.id);
+        await dbConfirmUser(user.id);
         res.status(200).json({ 
             msg: 'Cuenta confirmada. Ya puedes logearte.' 
         });
