@@ -27,6 +27,18 @@ const dbUserUpdate = async ( id, userUpdated ) => {
         userUpdated,
         { new: true }
     );
+} 
+
+const dbGetUserByVerificationCode = async (email, code) => {            //enviamos al email y codigo del usuario
+    return await userModel.findOne({ email, verificationCode: code });  
+}
+
+const dbConfirmUser = async (id) => {                     //actualizamos segun id el usario verificado
+    return await userModel.findByIdAndUpdate(
+        id,
+        { isActive: true, verificationCode: null },        //actualizamos si el codigo es correct
+        { new: true }
+    );
 }
 
 
@@ -36,5 +48,7 @@ export {
     dbGetUserById,
     dbDeletedUserById,
     dbUserUpdate,
-    dbGetUserByEmail
+    dbGetUserByEmail,
+    dbGetUserByVerificationCode,
+    dbConfirmUser
 }

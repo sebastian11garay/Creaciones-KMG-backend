@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser } from "../controllers/user.controller.js";
+import { confirmAcount, createUser } from "../controllers/user.controller.js";
 import { loginUser, reNewToken } from "../controllers/auth.controller.js";
 import authenticationUser from "../middlewares/authentication.middleware.js";
 import authUser from "../middlewares/authorization.middleware.js";
@@ -15,8 +15,9 @@ const router = Router();
 router.post( '/login', loginUser  );
 //http://localhost:3000/api/v1/auth/registerer
 router.post( '/register', createUser);              //solo registra usuario
-//http://localhost:3000/api/v1/auth/renew-token
-   
+//http://localhost:3000/api/v1/auth/confirm
+router.post( '/confirm', confirmAcount );
+//http://localhost:3000/api/v1/auth/renew-token 
 router.get(
     '/renew-token', 
     [authenticationUser, authUser(ALLOWED_ROLES)],

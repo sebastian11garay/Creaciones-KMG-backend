@@ -41,8 +41,12 @@ const userSchema = new Schema({
     },
     isActive: {
         type: Boolean,
-        default: true
+        default: false  // cambia si confirma el correo
 
+    },
+    verificationCode: {
+        type: String,
+        trim: true // Se genera al registrarse
     },
     createDate: {
         type: Date,

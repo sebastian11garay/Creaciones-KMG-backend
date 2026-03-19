@@ -13,7 +13,13 @@ const loginUser = async (req,res) => {
         if ( ! userFound ) {
             return res.status(400).json({ msg: 'No puede logearse. por favor haga su registro' });
         }
-         
+        //verificar si esta activo osea si ya verifico correo
+        if(!userFound.isActive){
+            return res.status(403).json({ 
+            msg: 'Cuenta no verificada. Por favor revisa tu correo para confirmar.' 
+            });
+        }
+        
 
     //paso 2: verificar si la contrasenia cohincide
 
