@@ -5,6 +5,7 @@
  * =========================
  */
 export const ROLES = {
+  SUPER_ADMIN: 'superAdmin',
   ADMIN: 'admin',
   COLABORATOR: 'colaborator',
   REGISTERED: 'registered'
